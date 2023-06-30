@@ -1,3 +1,3 @@
-export interface BalanceRequestQuery {
-  key: string;
+export interface QueryWithKeys {
+  keys: string;
 }

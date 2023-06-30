@@ -50,11 +50,9 @@ const getRecentTPS = async(): Promise<number> => {
   }
 }
 
-const getMarketCap = async(): Promise<IMarketCapResult[]> => {
+const getMarketCap = async(keys: string): Promise<IMarketCapResult[]> => {
   try {
-    const mintedAddresses = Object.keys(SPL_TOKENS).map((key: string, index: number) => {
-      return index === 0? SPL_TOKENS[key] : `${SPL_TOKENS[key]}`
-    });
+    const mintedAddresses = keys.split(',');
 
     const supplyPromises = mintedAddresses.map(minted => getTokenSupply(minted));
     const supplies = await Promise.all(supplyPromises);
@@ -75,9 +73,21 @@ const getMarketCap = async(): Promise<IMarketCapResult[]> => {
   }
 }
 
+const getBalanceForKeys = async(keys: string): Promise<number[]> => {
+  try {
+    const publicKeys = keys.split(',');
+
+    const balancePromises = publicKeys.map(pk => getBalance(pk));
+    const balances = await Promise.all(balancePromises);
+    return balances;
+  } catch (err) {
+    console.log(err)
+    return [];
+  }
+}
+
 export {
-  getTokenSupply,
-  getBalance,
   getRecentTPS,
-  getMarketCap
+  getMarketCap,
+  getBalanceForKeys
 };
