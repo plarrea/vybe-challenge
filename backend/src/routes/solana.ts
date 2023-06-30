@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from "express";
-import { getBalanceForKeys, getMarketCap, getRecentTPS } from "../services/solana";
+import { getBalanceForKeys, getMarketCap, getTPSList } from "../services/solana";
 import { QueryWithKeys } from "../interfaces/queries";
 import IMarketCapResult from "../interfaces/marketCap";
 
@@ -13,12 +13,12 @@ solanaRouter.get('/balance', async (
   res.send(balance.toString());
 });
 
-solanaRouter.get('/tps', async (
+solanaRouter.get('/tps', (
   req: Request,
   res: Response
 ) => {
-  const tps  = await getRecentTPS();
-  res.send(tps.toString());
+  const tps = getTPSList();
+  res.send(tps);
 });
 
 solanaRouter.get('/market-cap', async (
