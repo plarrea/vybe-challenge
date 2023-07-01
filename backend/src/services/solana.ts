@@ -113,12 +113,22 @@ const updateTPSList = async() => {
   if (tpsList.length > TPS_MAX_STORAGE) tpsList.shift();
 }
 
+updateTPSList();
 setInterval(async () => {
   updateTPSList();
 }, TPS_UPDATE_TIME);
 
 const getTPSList = (): ITps[] => {
-  return tpsList;
+  const dummyValues:ITps[] = [];
+
+  if (tpsList.length < TPS_MAX_STORAGE) {
+    // not enough samples, lets mock the timeline
+    const oldestDate = tpsList[0]?.date || new Date().getTime();
+    for (let i=0; i<TPS_MAX_STORAGE - tpsList.length; i++) {
+      dummyValues.push({ tps: null, date: oldestDate - ((i+1)*TPS_UPDATE_TIME) });
+    }
+  }
+  return [...dummyValues.reverse(), ...tpsList];
 };
 
 export {
