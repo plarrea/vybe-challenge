@@ -11,6 +11,10 @@ import { MemoryStorage } from "node-ts-cache-storage-memory";
 const solanaConnection: Connection = new Connection(SOLANA_ENDPOINT);
 const cache = new CacheContainer(new MemoryStorage());
 
+/**
+ * @param keys string with minted addresse
+ * @returns Promise with fetched supply 
+ */
 const getTokenSupply = async(tokenMintAddress: string):Promise<BigNumber> => {
   try {
     const cachedSupply = await cache.getItem<BigNumber>(tokenMintAddress);
@@ -27,6 +31,10 @@ const getTokenSupply = async(tokenMintAddress: string):Promise<BigNumber> => {
   }
 }
 
+/**
+ * @param keys string with minted addresses separated by commas
+ * @returns Promise with an array of results that include the mited addresses, symbol and its market cap
+ */
 const getMarketCap = async(keys: string): Promise<IMarketCapResult[]> => {
   try {
     const mintedAddresses = keys.split(',');
@@ -57,6 +65,10 @@ const getMarketCap = async(keys: string): Promise<IMarketCapResult[]> => {
   }
 }
 
+/**
+ * @param publicKey the public key to read its balance
+ * @returns Promise with the balance
+ */
 const getBalance = async (publicKey: string): Promise<number> => {
   try {
     const cachedBalance = await cache.getItem<number>(publicKey);
@@ -72,6 +84,10 @@ const getBalance = async (publicKey: string): Promise<number> => {
   }
 }
 
+/**
+ * @param keys string with public keys separated by commas
+ * @returns Promise with an array of fetched balances
+ */
 const getBalanceForKeys = async(keys: string): Promise<number[]> => {
   try {
     const publicKeys = keys.split(',');
@@ -84,6 +100,11 @@ const getBalanceForKeys = async(keys: string): Promise<number[]> => {
   }
 }
 
+/**
+ * Fetches a recent performance sample, 
+ * takes the number of transactions and the period to obtain the avergage tps
+ * @returns Promise with the recent TPS
+ */
 const getRecentTPS = async(): Promise<number> => {
   try {
     const samples = await solanaConnection.getRecentPerformanceSamples(10);
@@ -106,6 +127,10 @@ const getRecentTPS = async(): Promise<number> => {
 }
 
 const tpsList: ITps[] = [];
+/**
+ * adds a new sample to the current list, 
+ * removes oldest sample when the limit is greater than max allowed
+ */
 const updateTPSList = async() => {
   const date = new Date().getTime()
   const tps  = await getRecentTPS();
@@ -113,16 +138,14 @@ const updateTPSList = async() => {
   if (tpsList.length > TPS_MAX_STORAGE) tpsList.shift();
 }
 
-updateTPSList();
-setInterval(async () => {
-  updateTPSList();
-}, TPS_UPDATE_TIME);
-
+/**
+ * @returns array of samples with tps and date
+ */
 const getTPSList = (): ITps[] => {
   const dummyValues:ITps[] = [];
 
   if (tpsList.length < TPS_MAX_STORAGE) {
-    // not enough samples, lets mock the timeline
+    // not enough samples, lets mock the timeline for the chart
     const oldestDate = tpsList[0]?.date || new Date().getTime();
     for (let i=0; i<TPS_MAX_STORAGE - tpsList.length; i++) {
       dummyValues.push({ tps: null, date: oldestDate - ((i+1)*TPS_UPDATE_TIME) });
@@ -130,6 +153,12 @@ const getTPSList = (): ITps[] => {
   }
   return [...dummyValues.reverse(), ...tpsList];
 };
+
+// automatically update the list every X amount of time and keeps it in memory
+updateTPSList();
+setInterval(async () => {
+  updateTPSList();
+}, TPS_UPDATE_TIME);
 
 export {
   getTPSList,
