@@ -64,4 +64,4 @@ const MarketCap = () => {
   )
 }
 
-export default MarketCap
+export default MarketCap;

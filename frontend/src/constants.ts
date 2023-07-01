@@ -36,3 +36,4 @@ export const WALLETS = [
 ];
 
 export const DEFAULT_REFRESH_TIME = 10000;
+export const TPS_REFRESH_RATE = 60000;
