@@ -56,7 +56,7 @@ const MarketCap = () => {
       {
         !!marketCap?
           marketCap.length > 0? 
-          <ReactApexChart options={chartOptions} series={chartSeries} type="pie" width={380} />
+          <ReactApexChart options={chartOptions} series={chartSeries} type="pie" width={500} />
           :<h5>No Results</h5>
         :<h5>Loading...</h5>
       }

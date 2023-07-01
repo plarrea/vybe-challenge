@@ -59,7 +59,7 @@ const Balances = () => {
       {
         !!balances?
           balances.length > 0? 
-          <ReactApexChart options={chartOptions} series={chartSeries} type="bar" height={350}/>
+          <ReactApexChart options={chartOptions} series={chartSeries} type="bar" height={350} width={800} />
           :<h5>No Results</h5>
         :<h5>Loading...</h5>
       }
