@@ -19,9 +19,9 @@ This project aims to satisfy the requirements proposed <a href="https://github.c
 ## Screenshots
 <details>
   <summary>Click here to show</summary>
-  <img width="615" alt="Market Cap" src="https://github.com/plarrea/vybe-challenge/assets/6704965/3a7c0b4c-16fd-46de-b5de-7153b4a651c1">
-  <img width="888" alt="balances" src="https://github.com/plarrea/vybe-challenge/assets/6704965/633f1519-b965-4a19-a6a5-82e0670ac22d">
-  <img width="859" alt="TPS" src="https://github.com/plarrea/vybe-challenge/assets/6704965/d05ade62-483f-4c15-ae3d-e8045a1deb6b">
+  <img width="615" alt="Market Cap" src="https://github.com/plarrea/vybe-challenge/assets/6704965/5c9738a6-8c43-4e32-940e-742c2467c854">
+  <img width="888" alt="balances" src="https://github.com/plarrea/vybe-challenge/assets/6704965/dfece46a-22d0-4a55-a281-2d3b20eaaa4c">
+  <img width="859" alt="TPS" src="https://github.com/plarrea/vybe-challenge/assets/6704965/b1efb467-c312-4f43-bd6e-34234c56bb38">
 </details>
 
 
@@ -86,5 +86,4 @@ To run the frontend tests
 ```sh
    npm run test
    ```
-
 
