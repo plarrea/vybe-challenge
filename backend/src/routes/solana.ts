@@ -10,7 +10,7 @@ solanaRouter.get('/balance', async (
   res: Response
 ) => {
   const balance  = await getBalanceForKeys(req.query.keys);
-  res.send(balance.toString());
+  res.send(balance);
 });
 
 solanaRouter.get('/tps', (
