@@ -1,0 +1,30 @@
+.flex {
+  display: flex;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  box-shadow: 0 8px 28px 0 rgba(0, 0, 0, 0.538);
+  border: 1px solid rgb(53, 53, 53);
+  background-color: #201e1e;
+  padding: 1.5rem;
+  z-index: 100;
+
+  .routes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .link {
+    margin: 0 15px;
+    color: rgb(126, 124, 124);
+    &.selected{
+      color: white;
+    }
+    &:hover {
+      color: white;
+    }
+  }
+}
