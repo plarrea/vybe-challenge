@@ -3,7 +3,7 @@
 
 <br />
 <div align="center">
-  <img src="https://github.com/plarrea/vybe-challenge/assets/6704965/879bdbc1-9ab3-41d3-a261-2462e2de4a8b" alt="Logo" width="150" height="150">
+  <img src="https://github.com/plarrea/vybe-challenge/assets/6704965/dc93a422-8811-4129-9586-3099eca0b099" alt="Logo" width="150" height="150">
   <br />
   <br />
   <p align="center">
